@@ -42,8 +42,8 @@ specific licenses below or any installed dependency license.
 
 `docs/dependency-licenses.json` records installed names, exact versions and license
 metadata for this lockfile. React / PixiJS / Vite / TypeScript / Convex Auth and
-other packages retain their own notices. Three older packages omit the singular
-`license` field (`exit`, `memorystream`, `spawn-command`); their installed MIT
+other packages retain their own notices. `memorystream` exposes legacy plural
+`licenses` metadata, and `spawn-command` omits license metadata; their installed MIT
 license files were inspected. `caniuse-lite` uses CC-BY-4.0 and `spdx-exceptions`
 CC-BY-3.0; their data/attribution must be retained if redistributing dependencies.
 

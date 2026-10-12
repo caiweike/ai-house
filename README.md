@@ -72,7 +72,7 @@ python scripts/configure_llm.py --mock
 
 本次仅验证了本地自运行，不提供已验证可用的 Docker、Fly.io 或 Convex Cloud 部署配方。单独部署静态 `dist/` 不够，权威后端必须持续运行。公网部署前需要自行完成运行时版本固定、密钥和屋主初始化、生产环境变量、HTTPS/WebSocket、路由、权限、预算、持久卷、重启恢复和备份验证。详情见[部署状态](docs/DEPLOYMENT.md)。
 
-当前锁文件的 `npm audit` 报告 57 项依赖告警：完整依赖树中 48 项高危；省略开发依赖后为 20 项，其中 13 项高危。告警严重级别不等于已证明漏洞能从本项目被利用，但依赖仍需维护；在考虑公网生产托管前应先评估处理。详细范围和限制见[发布验证报告](docs/VERIFICATION.md)。
+截至 2026-10-12，更新后的锁文件在完整依赖树和 `--omit=dev` 下均通过 `npm audit`，当前没有已知 npm 安全告警。该结果是当前注册表数据的时间点快照，不是未来安全保证；安装仍会显示 Lucia 3 及其部分旧依赖已弃用的维护提示。详细变更和验证边界见[发布验证报告](docs/VERIFICATION.md)。
 
 ## MVP 0.1 与后续计划
 
@@ -156,7 +156,7 @@ Defaults are CNY 1/day, CNY 30/month, concurrency <=2, <=6 requests/minute, and 
 
 Only local self-run has been verified. No working Docker, Fly.io, or Convex Cloud deployment recipe is provided. Deploying the static `dist/` alone is insufficient; the authoritative backend must keep running. Before public hosting, independently verify pinned runtime versions, secrets and owner provisioning, production environment variables, HTTPS/WebSocket, routing, authorization, budgets, persistent volumes, restart recovery, and backups. See [deployment status](docs/DEPLOYMENT.md).
 
-The current lockfile's `npm audit` reports 57 dependency advisories: 48 high in the full dependency tree; 20 total with development dependencies omitted, including 13 high. Advisory severity does not prove that a vulnerability is exploitable through this project, but dependencies still need maintenance; assess and address the advisories before considering public production hosting. See the [release verification report](docs/VERIFICATION.md) for scope and caveats.
+As of 2026-10-12, `npm audit` reports no known advisories in either the full updated lockfile or with `--omit=dev`. This is a snapshot of current registry data, not a future security guarantee. Installation still reports deprecation notices for Lucia 3 and some older transitive packages. See the [release verification report](docs/VERIFICATION.md) for changes and verification limits.
 
 ## MVP 0.1 and roadmap
 

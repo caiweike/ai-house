@@ -8,6 +8,8 @@ production deployment certificate.
 - `npm ci`: clean dependency installation from lockfile; no copied node_modules.
 - `npm run test`: 20 suites, 148 tests passed (free in-memory/mocked tests).
 - `npm run build`: TypeScript + Vite passed; large bundle warning remains.
+- `npm run lint`: exits successfully with 979 existing warnings and no errors.
+- After the Tailwind v4 migration, a fresh free-mode browser smoke passed 16 checks: owner login, private-chat persistence, mobile layout, no browser errors/external requests, and no supplier key. No paid model was called.
 - Anonymous Convex backend started from an absent `.convex` at 4212/4213;
   3 residents bootstrapped from source, independently generated signing keys
   and owner credentials, frontend at 5274. Original ports/data were not used.
@@ -27,16 +29,22 @@ download on a machine without that cache is not independently re-tested. No
 private database/admin key/API key was reused. The tested database contains only
 new demo state and local test chat and is ignored, not included in Git/archive.
 
-## Security maintenance remains
+## Dependency security maintenance
 
-The pinned lockfile's `npm audit` reported **57** vulnerabilities:
-1 low, 8 moderate, 48 high, 0 critical. `--omit=dev` reported **20**:
-1 low, 6 moderate, 13 high. npm severity is a package advisory, not proof of a
-reachable exploit in the active house UI; nevertheless these require review and
-dependency maintenance before recommending public production hosting.
-Clerk/legacy frontend and Tailwind bring some runtime-tree advisories; several
-toolchain advisories require major upgrades and some have no available fix.
-No forced mass dependency migration was performed during source packaging.
+After dependency maintenance on 2026-10-12, `npm audit` and
+`npm audit --omit=dev` both reported **0 known advisories** from the current npm
+registry data. The refresh removes an unused Clerk login component and package,
+updates Jest/ts-jest and TypeScript ESLint, migrates Tailwind to v4, and moves
+build/type-only packages to `devDependencies`. A root override pins `argparse`
+2.0.1 because the test tooling's nested `js-yaml` 3 chain otherwise selects
+`sprintf-js` 1.0.3, while the current advisory affects every published
+`sprintf-js` version through 1.1.3. Tests and a clean install pass with the override.
+
+This is an advisory snapshot, not proof that the project is free of all security
+issues or that future registry data will remain unchanged. npm still reports
+deprecation notices for Lucia 3 and some older transitive packages; these are
+maintenance notices, not current `npm audit` findings. Re-run both audit commands
+when updating the lockfile and before a production deployment.
 
 ## Not certified
 
@@ -45,7 +53,7 @@ Cloud/Docker/Linux/TLS, external load/security, full semantic cognition quality,
 24-hour stability. Historical personal-project results are contextual claims,
 not fresh release verification. No paid model was called during preparation.
 
-After final publication changes, rerun `npm ci`, `npm run test`, `npm run build`
-and `npm run check:release` in the new repository. Never point smoke tests at a
-running personal database. Gate scans detect known patterns, not every possible
-secret; independently review any newly added config/media/private artifacts.
+After future dependency changes, rerun `npm ci`, `npm run test`, `npm run build`,
+`npm run lint`, and `npm run check:release`. Never point smoke tests at a running
+personal database. Gate scans detect known patterns, not every possible secret;
+independently review any newly added config/media/private artifacts.

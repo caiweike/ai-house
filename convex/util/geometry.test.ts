@@ -90,7 +90,7 @@ describe('pathOverlaps', () => {
       [0, 0, 0, 1, 0]
     ];
     const time = 0;
-    expect(() => pathOverlaps(path, time)).toThrowError('Invalid path: [[0,0,0,1,0]]');
+    expect(() => pathOverlaps(path, time)).toThrow('Invalid path: [[0,0,0,1,0]]');
   });
 
   test('should return true if the time is within the path', () => {
@@ -127,7 +127,7 @@ describe('pathPosition', () => {
       [0, 0, 0, 1, 0]
     ];
     const time = 0;
-    expect(() => pathPosition(path, time)).toThrowError('Invalid path: [[0,0,0,1,0]]');
+    expect(() => pathPosition(path, time)).toThrow('Invalid path: [[0,0,0,1,0]]');
   });
 
   test('returns the first point when time is less than the start time', () => {
@@ -231,7 +231,7 @@ describe('normalize', () => {
 
 describe('orientationDegrees', () => {
   test('should throw an error for a vector length smaller than EPSILON', () => {
-    expect(() => orientationDegrees({ dx: 0, dy: 0 })).toThrowError("Can't compute the orientation of too small vector {\"dx\":0,\"dy\":0}");
+    expect(() => orientationDegrees({ dx: 0, dy: 0 })).toThrow("Can't compute the orientation of too small vector {\"dx\":0,\"dy\":0}");
   });
   test('should return 0 for a vector pointing to the right', () => {
     expect(orientationDegrees({ dx: 1, dy: 0 })).toBe(0);

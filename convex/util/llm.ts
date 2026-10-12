@@ -162,10 +162,9 @@ export async function chatCompletion(
       if (result.status === 404 && config.provider === 'ollama') {
         await tryPullOllama(body.model!, error);
       }
-      throw {
+      throw Object.assign(new Error(`Chat completion failed with code ${result.status}`), {
         retry: result.status === 429 || result.status >= 500,
-        error: new Error(`Chat completion failed with code ${result.status}`),
-      };
+      });
     }
     if (body.stream) {
       return new ChatCompletionContent(result.body!, stopWords);
@@ -198,7 +197,10 @@ export async function tryPullOllama(model: string, error: string) {
       body: JSON.stringify({ name: model }),
     });
     console.log('Pull response status', pullResp.status);
-    throw { retry: true, error: `Dynamically pulled model. Original error: ${error}` };
+    throw Object.assign(
+      new Error(`Dynamically pulled model. Original error: ${error}`),
+      { retry: true },
+    );
   }
 }
 
@@ -230,10 +232,10 @@ export async function fetchEmbeddingBatch(texts: string[]) {
       }),
     });
     if (!result.ok) {
-      throw {
-        retry: result.status === 429 || result.status >= 500,
-        error: new Error(`Embedding failed with code ${result.status}: ${await result.text()}`),
-      };
+      throw Object.assign(
+        new Error(`Embedding failed with code ${result.status}: ${await result.text()}`),
+        { retry: result.status === 429 || result.status >= 500 },
+      );
     }
     return (await result.json()) as CreateEmbeddingResponse;
   });
@@ -271,10 +273,10 @@ export async function fetchModeration(content: string) {
       }),
     });
     if (!result.ok) {
-      throw {
-        retry: result.status === 429 || result.status >= 500,
-        error: new Error(`Embedding failed with code ${result.status}: ${await result.text()}`),
-      };
+      throw Object.assign(
+        new Error(`Embedding failed with code ${result.status}: ${await result.text()}`),
+        { retry: result.status === 429 || result.status >= 500 },
+      );
     }
     return (await result.json()) as { results: { flagged: boolean }[] };
   });
@@ -284,7 +286,7 @@ export async function fetchModeration(content: string) {
 // Retry after this much time, based on the retry number.
 const RETRY_BACKOFF = [1000, 10_000, 20_000]; // In ms
 const RETRY_JITTER = 100; // In ms
-type RetryError = { retry: boolean; error: any };
+type RetryError = Error & { retry?: boolean };
 
 export async function retryWithBackoff<T>(
   fn: () => Promise<T>,
@@ -310,8 +312,7 @@ export async function retryWithBackoff<T>(
           continue;
         }
       }
-      if (retryError.error) throw retryError.error;
-      else throw e;
+      throw e;
     }
   }
   throw new Error('Unreachable');

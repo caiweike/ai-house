@@ -15,8 +15,8 @@ export async function waitForInput(convex: ConvexReactClient, inputId: Id<'input
         dispose = watch.onUpdate(() => {
           try {
             result = watch.localQueryResult();
-          } catch (e: any) {
-            reject(e);
+          } catch (e: unknown) {
+            reject(e instanceof Error ? e : new Error(String(e)));
             return;
           }
           if (result !== undefined && result !== null) {

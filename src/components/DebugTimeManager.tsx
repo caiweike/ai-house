@@ -125,8 +125,6 @@ export function DebugTimeManager(props: {
       </div>
     );
   }
-  timeManager.latestEngineStatus?.generationNumber;
-
   return (
     <div
       style={{
