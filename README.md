@@ -11,7 +11,6 @@
 - React 18、PixiJS 7、TypeScript、Vite 7、Convex 1.46.0、Convex Auth。
 - 世界引擎、寻路、状态机、事务持久化、调度和历史插值基于 AI Town commit `8e05997f2409275669c8344b84a51692e83f3f33`。
 - 本项目新增室内地图和中文界面、三位居民人格、屋主用户名认证、私聊 ACL、事件追溯、统一 LLM 网关与预算账本、长期记忆、观点/关系修订及认知纪元隔离。
-- 没有叠加第二套世界后端。Agent-Worlds 仅作调研参考，没有包含其代码、后端或资源。
 
 AI Town 代码和本项目新增代码采用 MIT 许可。Convex 原生后端有独立的 FSL 许可；它由本地 CLI 单独下载，不因项目的 MIT 许可而改变许可。嵌入源码中的个别文件及依赖也有各自的许可。详见 [第三方来源和许可证声明](THIRD_PARTY_NOTICES.md)、[资源来源](ARTWORK.md) 和 [LICENSE](LICENSE)。
 
@@ -96,7 +95,6 @@ AI Living House is a Chinese-language shared home for AI residents, adapted from
 - React 18, PixiJS 7, TypeScript, Vite 7, Convex 1.46.0, and Convex Auth.
 - The world engine, pathfinding, state machine, transactional persistence, scheduling, and history interpolation are based on AI Town commit `8e05997f2409275669c8344b84a51692e83f3f33`.
 - Project additions include the indoor map and Chinese UI, three resident personalities, owner username authentication, private-chat ACLs, event traceability, a unified LLM gateway and budget ledger, long-term memory, belief/relationship revisions, and cognition-epoch isolation.
-- The project does not combine a second world backend. Agent-Worlds was a research reference only; none of its code, backend, or assets are included.
 
 AI Town code and project additions are licensed under MIT. The Convex native backend has a separate FSL license; the local CLI downloads it separately, and the project's MIT license does not change its terms. Some embedded source files and dependencies also have their own licenses. See [third-party sources and license notices](THIRD_PARTY_NOTICES.md), [asset provenance](ARTWORK.md), and [LICENSE](LICENSE).
 
